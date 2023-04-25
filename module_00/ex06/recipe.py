@@ -14,12 +14,11 @@ cookbook = {'sandwich':{
                 'prep_time':'15'}}
 
 def print_all():
-    for recipe, instructions in cookbook.items():
-        ingredients, meal, prep_time = instructions.values()
-        print(f"Recipe for {recipe}")
-        print(f"  Ingredients list : {ingredients}")
-        print(f"  To be eaten for {meal}")
-        print(f"  Takes {prep_time} minutes of cooking\n")
+    print("This is the list of the recipe in your cookbook:")
+    for recipe in cookbook:
+        print(f"  -{recipe}")
+    print("")
+
     
 def print_recipe():
     print("Please enter a recipe name to get its details:")
@@ -27,10 +26,10 @@ def print_recipe():
     for key in cookbook:
         if (recipe == key):
             ingredients, meal, prep_time = cookbook[recipe].values()
-            print(f"Recipe for {recipe}")
+            print(f"Recipe for {recipe} :")
             print(f"  Ingredients list : {ingredients}")
             print(f"  To be eaten for {meal}")
-            print(f"Takes {prep_time} minutes of cooking\n")
+            print(f"  Takes {prep_time} minutes of cooking\n")
             
             return
     print("Sorry, this recipe does not exists\n")
@@ -38,30 +37,34 @@ def print_recipe():
 def delete_recipe():
         print("Please enter a recipe name to delete:")
         recipe = input()
-        if (cookbook[recipe]):
-            del cookbook[recipe]
-            print("Recipe successfully deleted\n")
-            return
-        print("Sorry, this recipe does not exists\n")
+        try:
+            if (cookbook[recipe]):
+                del cookbook[recipe]
+                print("Recipe successfully deleted\n")
+                return
+        except:
+            print("Sorry, this recipe does not exists\n")
         
     
 def add_recipe():
     print("Please enter a name:")
     recipe = input()
-    if (cookbook[recipe]):
-        print("Sorry, this recipe allready exists\n")
-    else:
-        print("Please enter ingredients:")
+    try :
+        if (cookbook[recipe]):
+            print("Sorry, this recipe allready exists\n")
+    except :
+        print("Please enter ingredients (one by line)")
         text = input()
         ingredients = []
         while text:
             ingredients.append(text)
             text = input()
-        print("Please enter a meal type")
+        print("Please enter a meal type (ex: breakfast, lunch, diner, dessert...)")
         meal = input()
-        print("Please enter a preparation time")
+        print("\nPlease enter a preparation time (in minutes)")
         prep_time = input()
         cookbook.update({recipe:{'ingredients':ingredients, 'meal':meal, 'prep_time':prep_time}})
+        print(f"\n{recipe} succesfuly add into the cookbook!\n")
     
 def is_valid_choice(input):
     valid_choices = ['1', '2', '3','4','5']
@@ -82,10 +85,10 @@ def is_valid_choice(input):
             elif choice == '5':
                 print("Cookbook closed. Goodbye!\n")
                 return True
-    print("Sorry, this option does not exists\n")
+    print("\nSorry, this option does not exist\n")
     return False
     
-print('Welcome to the Python Cookbook !')
+print('Welcome to the Python Cookbook !\n')
 is_valid = False
 options = ['Add a recipe', 'Delete a recipe', 'Print a recipe', 'Print the cookbook', 'Quit']
 while is_valid != True:

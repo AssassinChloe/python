@@ -9,7 +9,7 @@ spaces and ponctuation signs in the chain provide as an argument"
 
     if type(text) != str:
         print('Error : Argument is not a string')
-    punctuation = '!()-{\}[],.?/:;"'
+    punctuation = '!()-{\}[]\',.?/:;"'
     nb_char = 0
     lower = 0
     upper = 0
